@@ -5,15 +5,6 @@ on:
     # প্রতি ২৪ ঘণ্টায় একবার চলবে (02:00 UTC = সকাল 08:00 AM BDT)
     - cron: "0 2 * * *"
   workflow_dispatch:
-    inputs:
-      check_links:
-        description: "সব লিংক HTTP চেক করে ডেড লিংক বাদ দেবেন?"
-        required: false
-        default: "false"
-        type: choice
-        options:
-          - "false"
-          - "true"
 
 permissions:
   contents: write
@@ -38,8 +29,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run playlist generator
-        env:
-          CHECK_EXTERNAL_CHECK: ${{ inputs.check_links || 'false' }}
         run: python playlist.py
 
       - name: Commit and push updated playlist.m3u
